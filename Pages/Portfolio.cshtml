@@ -1,0 +1,29 @@
+﻿@page "/portfolio"
+
+<h1>Contact</h1>
+
+<p>Please feel free to contact me over email for any inquiries at </p>
+<a href="mailto:jasonludden@gmail.com">jasonludden@gmail.com</a>
+
+<p> You can also follow me on social media</p>
+
+
+<a href="https://github.com/jludden">GitHub</a>
+
+<a href="https://www.linkedin.com/in/jason-ludden/">LinkedIn</a>
+
+
+
+
+<p>Current count: @currentCount</p>
+
+<button class="btn btn-primary" onclick="@IncrementCount">Click me</button>
+
+@functions {
+int currentCount = 0;
+
+void IncrementCount()
+{
+	currentCount++;
+}
+}
