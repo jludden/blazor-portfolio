@@ -1,29 +1,71 @@
 ﻿@page "/portfolio"
+@inject HttpClient Http
 
-<h1>Contact</h1>
+<h1> Open Source Projects </h1>
+<p> This page fetches data from Github.com</p>
 
-<p>Please feel free to contact me over email for any inquiries at </p>
-<a href="mailto:jasonludden@gmail.com">jasonludden@gmail.com</a>
+@if (items == null)
+{
+	<p><em>Loading...</em></p>
+}
+else
+{
+	<table class="table">
+		<thead>
+			<tr>
+				<th>Name</th>
+				<th>Description</th>
+				<th>Created</th>
+				<th>Last Update</th>
+			</tr>
+		</thead>
+		<tbody>
+			@foreach (var item in items)
+			{
+				<tr>
+					<td>
+						<a href=@item.HTML_URL>
+							@item.Full_Name 
+						</a>
+					</td>
+					<td>@item.Description</td>
+					<td>@item.Created_At.ToShortDateString()</td>
+					<td>@item.Updated_At.ToShortDateString()</td>
+				</tr>
+			}
+		</tbody>
+	</table>
+}
 
-<p> You can also follow me on social media</p>
-
-
-<a href="https://github.com/jludden">GitHub</a>
-
-<a href="https://www.linkedin.com/in/jason-ludden/">LinkedIn</a>
 
 
 
-
-<p>Current count: @currentCount</p>
-
-<button class="btn btn-primary" onclick="@IncrementCount">Click me</button>
+@*<u1>
+	@foreach (var item in items)
+	{
+		<li class="slide">@item.Full_Name</li>
+	}
+</u1>*@
 
 @functions {
-int currentCount = 0;
+	IList<HistoryItem> items;
 
-void IncrementCount()
-{
-	currentCount++;
+	protected override async Task OnInitAsync()
+	{
+		items = await Http.GetJsonAsync<HistoryItem[]>("https://api.github.com/users/jludden/repos");
+	}
+
+	class HistoryItem
+	{
+		public string Full_Name { get; set; }
+		public string Description { get; set; }
+		public string HTML_URL { get; set; }
+		public DateTime Created_At { get; set; }
+		public DateTime Updated_At { get; set; }
+		public string Language { get; set; }
+		public bool Fork { get; set; }
+	}
 }
-}
+
+
+<h1> PROJECTS END</h1>

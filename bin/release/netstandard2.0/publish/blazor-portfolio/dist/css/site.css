@@ -10,6 +10,23 @@ app {
     flex-direction: column;
 }
 
+.slide {
+	.inside {
+		display: table;
+		height: 100%;
+		width: 100%;
+		padding: 0 3em;
+	
+		p {
+		display: table-cell;
+		width: 100%;
+		clear: both;
+		vertical-align: middle;
+		text-align: center;
+		}
+	}
+}
+
 .top-row {
     height: 3.5rem;
     display: flex;
